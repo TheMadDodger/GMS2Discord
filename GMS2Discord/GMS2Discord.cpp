@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "DiscordIntegration.h"
 
-DiscordIntegration *discord = nullptr;
+DiscordIntegration *discordIntegration = nullptr;
 
 GMExport double StartUp()
 {
@@ -13,11 +13,11 @@ GMExport double StartUp()
 
 GMExport double ShutDown()
 {
-	if (discord)
+	if (discordIntegration)
 	{
-		discord->PreCleanUp();
-		delete discord;
-		discord = nullptr;
+		discordIntegration->PreCleanUp();
+		delete discordIntegration;
+		discordIntegration = nullptr;
 	}
 
 	return 1;
@@ -25,23 +25,28 @@ GMExport double ShutDown()
 
 GMExport double InitializeDiscord(const char *applicationId, const char *steamID)
 {
-	discord = new DiscordIntegration(applicationId, steamID);
-	discord->Initialize();
+	discordIntegration = new DiscordIntegration(applicationId, steamID);
+	discordIntegration->Initialize();
 
-	discord->SetData(DiscordData::LargeImageKey, "default");
+	discordIntegration->SetData(DiscordData::LargeImageKey, "default");
 
 	return 1;
 }
 
 GMExport double UpdatePresence()
 {
-	discord->Update();
-
+	discordIntegration->Update();
 	return 1;
 }
 
 GMExport double SetDiscordData(double key, const char *details)
 {
-	discord->SetData(key, details);
+	discordIntegration->SetData(key, details);
+	return 1;
+}
+
+GMExport double RunCallbacks()
+{
+	discordIntegration->RunCallbacks();
 	return 1;
 }

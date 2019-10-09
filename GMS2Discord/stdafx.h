@@ -12,6 +12,7 @@
 #include <windows.h>
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 
@@ -21,6 +22,10 @@
 // Defines
 #define GMExport extern "C" __declspec (dllexport)
 
+#if !defined(_CRT_SECURE_NO_WARNINGS)
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 // Discord RPC
-#pragma comment(lib, "discord-rpc.lib")
-#include "discord_rpc.h"
+#pragma comment(lib, "discord_game_sdk.dll.lib")
+#include "discord.h"

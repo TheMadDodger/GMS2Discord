@@ -23,6 +23,7 @@ public:
 
 	// Setting data
 	void SetData(double key, std::string details);
+	void RunCallbacks();
 
 private:
 	// Callbacks
@@ -35,11 +36,12 @@ private:
 
 private:
 	// Members
-	std::string m_ApplicationId;
-	std::string m_SteamID;
-	DiscordRichPresence m_RichPresense;
-
+	discord::ClientId m_ApplicationId;
+	uint32_t m_SteamID;
+	discord::User m_CurrentUser;
+	discord::Core *m_pDiscordCore;
 	std::vector<std::string> m_Data;
+	discord::Activity m_Activity{};
 };
 
 //char buffer[256];
